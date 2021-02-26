@@ -12,20 +12,16 @@ import (
 // A pointer to this type can be assigned to http.Client.Transport to
 // override the default RoundTripper
 type SpyServer struct {
-	request  *http.Request
-	response *http.Response
-	err      error
-}
+	Response *http.Response
+	Error    error
 
-// New takes a http.Response and error that will be later returned during the http.RoundTrip
-func New(response *http.Response, err error) *SpyServer {
-	return &SpyServer{response: response, err: err}
+	request *http.Request
 }
 
 // RoundTrip implements the http.RoundTripper interface
 func (s *SpyServer) RoundTrip(req *http.Request) (*http.Response, error) {
 	s.request = req
-	return s.response, s.err
+	return s.Response, s.Error
 }
 
 // GetRequest returns the http.Request that was passed during the last RoundTrip

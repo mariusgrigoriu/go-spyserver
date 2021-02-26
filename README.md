@@ -19,9 +19,10 @@ First, create a spyserver like this:
 ```
 response := &http.Response{
     StatusCode: http.StatusOK,
-	Body:       body,
+    Body:       body,
 }
-spy := spyserver.New(response, nil)
+err := fmt.Errorf("error")
+spy := SpyServer{response, err}
 ```
 
 Next, set the Transport in your http client to the spyserver and call it:
